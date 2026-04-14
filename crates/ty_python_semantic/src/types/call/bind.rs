@@ -4546,7 +4546,6 @@ struct ArgumentTypeChecker<'a, 'db> {
 
     inferable_typevars: InferableTypeVars<'db>,
     specialization: Option<Specialization<'db>>,
-    partial_specialization: Option<Specialization<'db>>,
 
     /// Argument indices for which specialization inference has already produced a sufficiently
     /// precise argument mismatch. We can then silence `check_argument_type` for those arguments to
@@ -4625,7 +4624,6 @@ impl<'a, 'db> ArgumentTypeChecker<'a, 'db> {
             errors,
             inferable_typevars: InferableTypeVars::None,
             specialization: None,
-            partial_specialization: None,
             constraint_set_errors: vec![false; arguments.len()],
         }
     }
@@ -4870,11 +4868,8 @@ impl<'a, 'db> ArgumentTypeChecker<'a, 'db> {
             };
 
         let specialization = builder.build_with(generic_context, maybe_promote);
-        let partial_specialization = specialization;
-
         self.return_ty = self.return_ty.apply_specialization(self.db, specialization);
         self.specialization = Some(specialization);
-        self.partial_specialization = Some(partial_specialization);
     }
 
     fn infer_argument_constraints<'c>(
@@ -5364,12 +5359,7 @@ impl<'a, 'db> ArgumentTypeChecker<'a, 'db> {
 
     fn finish(
         self,
-    ) -> (
-        InferableTypeVars<'db>,
-        Option<Specialization<'db>>,
-        Option<Specialization<'db>>,
-        Type<'db>,
-    ) {
+    ) -> (InferableTypeVars<'db>, Option<Specialization<'db>>, Type<'db>) {
         for (parameter_ty, builder) in self
             .parameter_tys
             .iter_mut()
@@ -5380,12 +5370,7 @@ impl<'a, 'db> ArgumentTypeChecker<'a, 'db> {
             }
         }
 
-        (
-            self.inferable_typevars,
-            self.specialization,
-            self.partial_specialization,
-            self.return_ty,
-        )
+        (self.inferable_typevars, self.specialization, self.return_ty)
     }
 }
 
@@ -5592,12 +5577,8 @@ impl<'db> Binding<'db> {
         checker.infer_specialization(constraints);
         checker.check_argument_types(constraints);
 
-        (
-            self.inferable_typevars,
-            self.specialization,
-            self.partial_specialization,
-            self.return_ty,
-        ) = checker.finish();
+        (self.inferable_typevars, self.specialization, self.return_ty) = checker.finish();
+        self.partial_specialization = self.specialization;
     }
 
     fn check_keyword_unpack_key_types(
