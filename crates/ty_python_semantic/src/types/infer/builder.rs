@@ -86,7 +86,9 @@ use crate::types::special_form::TypeQualifier;
 use crate::types::subclass_of::SubclassOfInner;
 use crate::types::tuple::{Tuple, TupleLength, TupleSpecBuilder, TupleType};
 use crate::types::type_alias::{ManualPEP695TypeAliasType, PEP695TypeAliasType};
-use crate::types::typevar::{BoundTypeVarIdentity, TypeVarConstraints, TypeVarIdentity};
+use crate::types::typevar::{
+    BoundTypeVarIdentity, BoundTypeVarInstance, TypeVarConstraints, TypeVarIdentity,
+};
 use crate::types::{
     CallDunderError, CallableBinding, CallableType, CallableTypes, ClassType, DynamicType,
     InferenceFlags, InternedConstraintSet, InternedType, IntersectionBuilder, IntersectionType,
@@ -5906,6 +5908,97 @@ impl<'db, 'ast> TypeInferenceBuilder<'db, 'ast> {
         self.infer_collection_literal_impl(collection_class, elts, infer_elt_expression, tcx)
     }
 
+    fn promote_tuple_unions_for_collection_literal<'expr, const N: usize, I>(
+        &self,
+        typevar: BoundTypeVarInstance<'db>,
+        lower: Type<'db>,
+        collection_entries: &[[Option<&'expr ast::Expr>; N]],
+        elt_tys: &I,
+    ) -> Type<'db>
+    where
+        I: Iterator<Item = BoundTypeVarInstance<'db>> + Clone,
+    {
+        if !matches!(lower, Type::Union(_)) {
+            return lower;
+        }
+
+        let db = self.db();
+        let typevar_identity = typevar.identity(db);
+        let mut tuple_literal_candidates = FxHashSet::default();
+        let mut non_literal_tuple_candidates = FxHashSet::default();
+
+        for entry_exprs in collection_entries {
+            for (elt, elt_ty) in entry_exprs.iter().zip((*elt_tys).clone()) {
+                // For dicts, this loop runs twice: once for the key typevar and again for the
+                // value typevar. This makes sure that we match the element under consideration
+                // to the right typevar.
+                if elt_ty.identity(db) != typevar_identity {
+                    continue;
+                }
+
+                let Some(elt) = *elt else { continue };
+                let candidate_types =
+                    self.tuple_promotion_candidate_types_for_collection_literal(elt);
+                if candidate_types.is_empty() {
+                    continue;
+                }
+
+                let candidate_set = if Self::is_tuple_promotion_candidate_literal(elt) {
+                    &mut tuple_literal_candidates
+                } else {
+                    &mut non_literal_tuple_candidates
+                };
+
+                candidate_set.extend(candidate_types);
+            }
+        }
+
+        lower.promote_tuple_literal_unions(
+            db,
+            &tuple_literal_candidates,
+            &non_literal_tuple_candidates,
+        )
+    }
+
+    fn is_tuple_promotion_candidate_literal(expression: &ast::Expr) -> bool {
+        let ast::Expr::Tuple(tuple) = expression else {
+            return false;
+        };
+
+        // The runtime length of starred expressions is unknown, so we exclude them from
+        // consideration for this particular type of promotion.
+        !tuple.iter().any(ast::Expr::is_starred_expr)
+    }
+
+    fn tuple_promotion_candidate_types_for_collection_literal(
+        &self,
+        expression: &ast::Expr,
+    ) -> Vec<Type<'db>> {
+        let Some(ty) = self
+            .try_expression_type(expression)
+            .map(|ty| ty.promote(self.db()))
+        else {
+            return Vec::new();
+        };
+
+        match ty {
+            Type::Union(union) => union
+                .elements(self.db())
+                .iter()
+                .copied()
+                .filter(|element| {
+                    element
+                        .homogeneous_fixed_length_tuple_instance(self.db())
+                        .is_some()
+                })
+                .collect(),
+            _ => ty
+                .homogeneous_fixed_length_tuple_instance(self.db())
+                .map(|_| vec![ty])
+                .unwrap_or_default(),
+        }
+    }
+
     // Infer the type of a collection literal expression.
     fn infer_collection_literal_impl<'expr, const N: usize>(
         &mut self,
@@ -6061,6 +6154,7 @@ impl<'db, 'ast> TypeInferenceBuilder<'db, 'ast> {
 
         // Create a set of constraints to infer a precise type for `T`.
         let mut builder = SpecializationBuilder::new(self.db(), &constraints, inferable);
+        let mut typevars_with_declared_mappings = FxHashSet::default();
 
         for elt_ty in elt_tys.clone() {
             let elt_ty_identity = elt_ty.identity(self.db());
@@ -6089,6 +6183,7 @@ impl<'db, 'ast> TypeInferenceBuilder<'db, 'ast> {
             // our inference is compatible with subsequent additions to the collection), but it
             // matches the behavior of other type checkers and is usually the desired behavior.
             if let Some(elt_tcx) = elt_tcx {
+                typevars_with_declared_mappings.insert(elt_ty_identity);
                 builder.insert_type_mapping(elt_ty, elt_tcx);
             }
         }
@@ -6184,12 +6279,29 @@ impl<'db, 'ast> TypeInferenceBuilder<'db, 'ast> {
         let class_type = collection_alias
             .origin(self.db())
             .apply_specialization(self.db(), |_| {
-                builder.build_with(generic_context, |_, lower, _| {
-                    // Promote singleton types to `T | Unknown` in inferred type parameters,
-                    // so that e.g. `[None]` is inferred as `list[None | Unknown]`.
+                builder.build_with(generic_context, |typevar, lower, _| {
+                    let promoted_lower =
+                        if typevars_with_declared_mappings.contains(&typevar.identity(self.db())) {
+                            lower
+                        } else {
+                            self.promote_tuple_unions_for_collection_literal(
+                                typevar, lower, elts, &elt_tys,
+                            )
+                        };
+
                     if elt_tcx_constraints.is_empty() {
-                        return Some(lower.promote_singletons_recursively(self.db()));
+                        return Some(
+                            promoted_lower
+                                // Promote singleton types to `T | Unknown` in inferred type parameters,
+                                // so that e.g. `[None]` is inferred as `list[None | Unknown]`.
+                                .promote_singletons_recursively(self.db()),
+                        );
                     }
+
+                    if promoted_lower != lower {
+                        return Some(promoted_lower);
+                    }
+
                     None
                 })
             });

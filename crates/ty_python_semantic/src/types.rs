@@ -1,7 +1,7 @@
 use compact_str::ToCompactString;
 use itertools::Itertools;
 use ruff_diagnostics::{Edit, Fix};
-use rustc_hash::FxHashMap;
+use rustc_hash::{FxHashMap, FxHashSet};
 
 use std::borrow::Cow;
 use std::cell::OnceCell;
@@ -862,6 +862,84 @@ fn recursive_type_normalize_type_guard_like<'db, T: TypeGuardLike<'db>>(
     };
     Some(guard.with_type(db, ty))
 }
+// Represents the members of a union that are all homogeneously-typed, fixed-length tuples and that
+// share the same element type.
+//
+// EXAMPLE:
+//
+//     Given a union like `str | tuple[int] | tuple[int, int] | tuple[str, str]`, we would build the
+//     following instances of this struct:
+//
+//         HomogenousTupleGroup{
+//             element_type: int,
+//             original_tuple_types: [tuple[int], tuple[int, int]]
+//         }
+//
+//         HomogenousTupleGroup{
+//             element_type: str,
+//             original_tuple_types: [tuple[str, str]]
+//         }
+struct HomogeneousTupleGroup<'db> {
+    element_type: Type<'db>,
+    original_tuple_types: Vec<Type<'db>>,
+}
+
+impl<'db> HomogeneousTupleGroup<'db> {
+    fn new(element_type: Type<'db>, original_tuple_type: Type<'db>) -> Self {
+        Self {
+            element_type,
+            original_tuple_types: vec![original_tuple_type],
+        }
+    }
+
+    // Add a new tuple to this group.
+    fn add(&mut self, original_tuple_type: Type<'db>) {
+        self.original_tuple_types.push(original_tuple_type);
+    }
+
+    // Does the group have tuples of different lengths?
+    //
+    // This determines whether or not we should promote the types in this group to a single tuple
+    // of variable-length.
+    fn has_multiple_lengths(&self, db: &'db dyn Db) -> bool {
+        let mut lengths = self.original_tuple_types.iter().filter_map(|tuple_type| {
+            tuple_type
+                .homogeneous_fixed_length_tuple_instance(db)
+                .map(|(_, length)| length)
+        });
+
+        let Some(first_length) = lengths.next() else {
+            return false;
+        };
+
+        lengths.any(|length| length != first_length)
+    }
+}
+
+fn partition_homogeneous_fixed_length_tuple_union_elements<'db>(
+    db: &'db dyn Db,
+    elements: impl IntoIterator<Item = Type<'db>>,
+) -> (Vec<Type<'db>>, Vec<HomogeneousTupleGroup<'db>>) {
+    let mut other_union_elements = Vec::new();
+    let mut tuple_groups: Vec<HomogeneousTupleGroup<'db>> = Vec::new();
+
+    for element in elements {
+        if let Some((tuple_element_type, _)) = element.homogeneous_fixed_length_tuple_instance(db) {
+            if let Some(group) = tuple_groups
+                .iter_mut()
+                .find(|group| group.element_type.is_equivalent_to(db, tuple_element_type))
+            {
+                group.add(element);
+            } else {
+                tuple_groups.push(HomogeneousTupleGroup::new(tuple_element_type, element));
+            }
+        } else {
+            other_union_elements.push(element);
+        }
+    }
+
+    (other_union_elements, tuple_groups)
+}
 
 #[derive(Debug, Clone, Copy)]
 #[expect(clippy::struct_field_names)]
@@ -1295,6 +1373,32 @@ impl<'db> Type<'db> {
     fn exact_tuple_instance_spec(&self, db: &'db dyn Db) -> Option<Cow<'db, TupleSpec<'db>>> {
         self.as_nominal_instance()
             .and_then(|instance| instance.own_tuple_spec(db))
+    }
+
+    /// Detects whether or not this type is a homogeneously-typed tuple of fixed length
+    /// e.g. `tuple[str, str]` but NOT `tuple[str, int]` or `tuple[str, ...]`.
+    ///
+    /// If this type is indeed a homogeneously-typed, fixed-length tuple, then returns the
+    /// tuple's homogeneous element type and its length.
+    pub(crate) fn homogeneous_fixed_length_tuple_instance(
+        self,
+        db: &'db dyn Db,
+    ) -> Option<(Type<'db>, usize)> {
+        let tuple_spec = self.exact_tuple_instance_spec(db)?;
+        let TupleSpec::Fixed(tuple) = tuple_spec.as_ref() else {
+            return None;
+        };
+
+        let length = tuple.len();
+        if length == 0 {
+            return None;
+        }
+
+        let mut elements = tuple.iter_all_elements();
+        let element_type = elements.next()?;
+        elements
+            .all(|element| element.is_equivalent_to(db, element_type))
+            .then_some((element_type, length))
     }
 
     /// Returns the materialization of this type depending on the given `variance`.
@@ -1923,6 +2027,80 @@ impl<'db> Type<'db> {
             &TypeMapping::Promote(PromotionMode::On, PromotionKind::Regular),
             TypeContext::default(),
         )
+    }
+
+    /// Promote unions of homogeneously-typed, fixed-length tuples with different lengths to a
+    /// single variable-length tuple when every tuple in that homogeneous group came from a tuple
+    /// literal in the collection literal currently being inferred.
+    ///
+    /// This deliberately only applies to unions; a standalone fixed-length tuple keeps its shape,
+    /// and groups that include non-literal tuple members remain unchanged.
+    ///
+    /// EXAMPLE:
+    ///
+    /// In the code below, we promote `dict[str, tuple[str, str] | tuple[str, str, str, str]]`
+    /// to `dict[str, tuple[str,...]]`.
+    ///
+    /// ```python
+    /// languages = {
+    ///     "python": (".py", ".pyi"),
+    ///     "javascript": (".js", ".jsx", ".ts", ".tsx"),
+    /// }
+    /// reveal_type(languages)  # revealed: dict[str, tuple[str, ...]]
+    /// ```
+    ///
+    pub(crate) fn promote_tuple_literal_unions(
+        self,
+        db: &'db dyn Db,
+        tuple_literal_candidates: &FxHashSet<Type<'db>>,
+        non_literal_tuple_candidates: &FxHashSet<Type<'db>>,
+    ) -> Type<'db> {
+        let Type::Union(union) = self else {
+            return self;
+        };
+
+        let (other_union_elements, tuple_groups) =
+            partition_homogeneous_fixed_length_tuple_union_elements(
+                db,
+                union.elements(db).iter().copied(),
+            );
+
+        if !tuple_groups.iter().any(|group| {
+            group.has_multiple_lengths(db)
+                && group.original_tuple_types.iter().all(|tuple_type| {
+                    tuple_literal_candidates.contains(tuple_type)
+                        && !non_literal_tuple_candidates.contains(tuple_type)
+                })
+        }) {
+            // No tuple group consisted entirely of tuple-literal members with differing lengths,
+            // so there is nothing to promote. Return early to avoid rebuilding the union type.
+            return self;
+        }
+
+        let mut builder = UnionBuilder::new(db)
+            .unpack_aliases(false)
+            .recursively_defined(union.recursively_defined(db));
+
+        for element in other_union_elements {
+            builder = builder.add(element);
+        }
+
+        for group in tuple_groups {
+            if group.has_multiple_lengths(db)
+                && group.original_tuple_types.iter().all(|tuple_type| {
+                    tuple_literal_candidates.contains(tuple_type)
+                        && !non_literal_tuple_candidates.contains(tuple_type)
+                })
+            {
+                builder = builder.add(Type::homogeneous_tuple(db, group.element_type));
+            } else {
+                for element in group.original_tuple_types {
+                    builder = builder.add(element);
+                }
+            }
+        }
+
+        builder.build()
     }
 
     /// Promote a top-level singleton type (like `None`, `EllipsisType`) to `T | Unknown`.

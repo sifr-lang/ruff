@@ -90,6 +90,76 @@ reveal_type((1, 2, 3))  # revealed: tuple[Literal[1], Literal[2], Literal[3]]
 reveal_type(frozenset((1, 2, 3)))  # revealed: frozenset[Literal[1, 2, 3]]
 ```
 
+## Unions of differently-sized tuple literals can be promoted to a variable-length tuple
+
+When an invariant collection literal contains a union of fixed-length tuple literals with the same
+promoted element type but different lengths, the union is promoted to a single variable-length
+tuple. Other non-tuple members of the same union are not modified.
+
+```py
+reveal_type([(1, 2), (3, 4, 5)])  # revealed: list[tuple[int, ...]]
+reveal_type([0, (1, 2), (3, 4, 5)])  # revealed: list[int | tuple[int, ...]]
+reveal_type({".py": (".py", ".pyi"), ".js": (".js", ".jsx", ".ts", ".tsx")})  # revealed: dict[str, tuple[str, ...]]
+reveal_type({(1, 2), (3, 4, 5)})  # revealed: set[tuple[int, ...]]
+```
+
+Tuple-size promotion only widens unions of tuple literals. A single tuple in an invariant position
+still has its element types promoted, but it keeps its fixed length.
+
+```py
+def promote[T](x: T) -> list[T]:
+    return [x]
+
+reveal_type((1, 2))  # revealed: tuple[Literal[1], Literal[2]]
+reveal_type(promote((1, 2)))  # revealed: list[tuple[int, int]]
+```
+
+Same-length tuple literals also keep their fixed length. For example, a collection representing
+coordinate pairs does not accept a coordinate triple later.
+
+```py
+coordinates = {
+    "home": (0, 0),
+    "palm-tree": (10, 8),
+}
+reveal_type(coordinates)  # revealed: dict[str, tuple[int, int]]
+coordinates["treasure"] = (5, 6, -10)  # error: [invalid-assignment]
+```
+
+Heterogeneous tuple shapes and empty tuples are not widened.
+
+```py
+reveal_type([(1, "a"), (2, "b")])  # revealed: list[tuple[int, str]]
+reveal_type([(1, 2), ("a", "b", "c")])  # revealed: list[tuple[int, int] | tuple[str, str, str]]
+reveal_type([()])  # revealed: list[tuple[()]]
+```
+
+Explicit finite tuple unions are not widened just because they are inferred into a collection. This
+also preserves unions that mix tuple and non-tuple members.
+
+```py
+def get_padding() -> int | tuple[int] | tuple[int, int]:
+    return (0, 1)
+
+def get_segment() -> tuple[int] | tuple[int, int, int]:
+    return (0,)
+
+reveal_type([get_padding()])  # revealed: list[int | tuple[int] | tuple[int, int]]
+reveal_type([get_segment()])  # revealed: list[tuple[int] | tuple[int, int, int]]
+```
+
+No promotion occurs in a collection that mixes literal tuples with non-literals, even if the
+inferred type of the non-literal is an otherwise eligible union of tuples.
+
+```py
+def get_segment() -> tuple[int] | tuple[int, int, int, int]:
+    return (0,)
+
+segments = [get_segment(), (1, 2), (3, 4, 5)]
+reveal_type(segments)  # revealed: list[tuple[int] | tuple[int, int, int, int] | tuple[int, int] | tuple[int, int, int]]
+segments.append((6, 7, 8, 9, 10))  # error: [invalid-argument-type]
+```
+
 ## Invariant and contravariant return types are promoted
 
 We promote in non-covariant position in the return type of a generic function, or constructor of a
@@ -253,6 +323,9 @@ reveal_type(x13)  # revealed: list[tuple[Literal[1], Literal[2], Literal[3]]]
 
 x14: list[tuple[int, str, int]] = [(1, "2", 3), (4, "5", 6)]
 reveal_type(x14)  # revealed: list[tuple[int, str, int]]
+
+x14a: list[tuple[int, int]] = [(1, 2), (3, 4)]
+reveal_type(x14a)  # revealed: list[tuple[int, int]]
 
 x15: list[tuple[Literal[1], ...]] = [(1, 1, 1)]
 reveal_type(x15)  # revealed: list[tuple[Literal[1], ...]]
@@ -543,6 +616,7 @@ any errors from clearly incorrect code like this:
 `module1.py`:
 
 ```py
+
 ```
 
 `main.py`:
