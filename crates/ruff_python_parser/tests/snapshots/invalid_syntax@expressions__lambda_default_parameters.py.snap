@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/invalid/expressions/lambda_default_parameters.py
 ---
 ## AST
@@ -29,6 +30,10 @@ Module(
                                                     range: 7..8,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -41,6 +46,10 @@ Module(
                                                     range: 10..11,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -62,6 +71,10 @@ Module(
                                                     range: 16..17,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },

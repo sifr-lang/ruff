@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/valid/statement/type.py
 ---
 ## AST
@@ -2393,6 +2394,10 @@ Module(
                                                     range: 1676..1681,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -2725,6 +2730,10 @@ Module(
                                                     range: 1821..1822,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },

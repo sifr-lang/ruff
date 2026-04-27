@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/inline/ok/function_def_valid_return_expr.py
 ---
 ## AST
@@ -99,6 +100,10 @@ Module(
                                                         range: 48..49,
                                                     },
                                                     annotation: None,
+                                                    convention: AstParamConvention {
+                                                        ownership: Borrow,
+                                                        mutability: Immutable,
+                                                    },
                                                 },
                                                 default: None,
                                             },

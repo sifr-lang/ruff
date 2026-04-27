@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/inline/ok/param_with_star_annotation.py
 ---
 ## AST
@@ -58,6 +59,10 @@ Module(
                                         },
                                     ),
                                 ),
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],
@@ -129,6 +134,10 @@ Module(
                                         },
                                     ),
                                 ),
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],

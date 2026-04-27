@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/inline/ok/match_classify_as_keyword_1.py
 ---
 ## AST
@@ -527,6 +528,10 @@ Module(
                                                     range: 332..335,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },

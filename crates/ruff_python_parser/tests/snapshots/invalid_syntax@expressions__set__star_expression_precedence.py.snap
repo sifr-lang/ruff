@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/invalid/expressions/set/star_expression_precedence.py
 ---
 ## AST
@@ -299,6 +300,10 @@ Module(
                                                                         range: 177..178,
                                                                     },
                                                                     annotation: None,
+                                                                    convention: AstParamConvention {
+                                                                        ownership: Borrow,
+                                                                        mutability: Immutable,
+                                                                    },
                                                                 },
                                                                 default: None,
                                                             },

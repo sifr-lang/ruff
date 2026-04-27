@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/valid/statement/while.py
 ---
 ## AST
@@ -340,6 +341,10 @@ Module(
                                                     range: 211..212,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },

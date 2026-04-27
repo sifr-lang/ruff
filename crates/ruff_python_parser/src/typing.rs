@@ -1,9 +1,9 @@
 //! This module takes care of parsing a type annotation.
 
+use ruff_text_size::Ranged;
 use ruff_python_ast::relocate::relocate_expr;
 use ruff_python_ast::str::raw_contents;
 use ruff_python_ast::{ExprStringLiteral, ModExpression, StringFlags, StringLiteral};
-use ruff_text_size::Ranged;
 
 use crate::{parse_expression, parse_expression_range, ParseError, Parsed};
 

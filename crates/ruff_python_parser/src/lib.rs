@@ -1,3 +1,6 @@
+// Vendored from ruff -- suppress upstream warnings we don't control.
+#![allow(warnings)]
+
 //! This crate can be used to parse Python source code into an Abstract
 //! Syntax Tree.
 //!
@@ -72,9 +75,9 @@ pub use crate::token::TokenKind;
 
 use crate::parser::Parser;
 
-use ruff_python_ast::{Expr, Mod, ModExpression, ModModule, PySourceType, Suite};
 use ruff_python_trivia::CommentRanges;
 use ruff_text_size::{Ranged, TextRange, TextSize};
+use ruff_python_ast::{Expr, Mod, ModExpression, ModModule, PySourceType, Suite};
 
 mod error;
 pub mod lexer;

@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/inline/err/lambda_body_with_starred_expr.py
 ---
 ## AST
@@ -29,6 +30,10 @@ Module(
                                                     range: 7..8,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -79,6 +84,10 @@ Module(
                                                                 range: 20..21,
                                                             },
                                                             annotation: None,
+                                                            convention: AstParamConvention {
+                                                                ownership: Borrow,
+                                                                mutability: Immutable,
+                                                            },
                                                         },
                                                         default: None,
                                                     },
@@ -134,6 +143,10 @@ Module(
                                                                 range: 34..35,
                                                             },
                                                             annotation: None,
+                                                            convention: AstParamConvention {
+                                                                ownership: Borrow,
+                                                                mutability: Immutable,
+                                                            },
                                                         },
                                                         default: None,
                                                     },
@@ -192,6 +205,10 @@ Module(
                                                     range: 50..51,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },

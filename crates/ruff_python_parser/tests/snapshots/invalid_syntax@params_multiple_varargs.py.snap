@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/inline/err/params_multiple_varargs.py
 ---
 ## AST
@@ -32,6 +33,10 @@ Module(
                                         range: 8..9,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -44,6 +49,10 @@ Module(
                                     range: 15..19,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -56,6 +65,10 @@ Module(
                                         range: 21..22,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -100,6 +113,10 @@ Module(
                                         range: 71..72,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -112,6 +129,10 @@ Module(
                                     range: 75..80,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -124,6 +145,10 @@ Module(
                                         range: 90..91,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -168,6 +193,10 @@ Module(
                                         range: 106..107,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -180,6 +209,10 @@ Module(
                                     range: 110..115,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -192,6 +225,10 @@ Module(
                                         range: 117..118,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -204,6 +241,10 @@ Module(
                                         range: 120..121,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },

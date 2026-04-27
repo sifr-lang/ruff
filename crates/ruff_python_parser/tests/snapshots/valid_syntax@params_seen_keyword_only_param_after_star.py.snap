@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/inline/ok/params_seen_keyword_only_param_after_star.py
 ---
 ## AST
@@ -34,6 +35,10 @@ Module(
                                         range: 11..12,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -46,6 +51,10 @@ Module(
                                     range: 16..22,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -89,6 +98,10 @@ Module(
                                         range: 40..41,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -110,6 +123,10 @@ Module(
                                     range: 48..54,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },

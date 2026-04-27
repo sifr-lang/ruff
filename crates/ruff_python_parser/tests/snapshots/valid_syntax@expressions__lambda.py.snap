@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 74
 input_file: crates/ruff_python_parser/resources/valid/expressions/lambda.py
 ---
 ## AST
@@ -66,6 +67,10 @@ Module(
                                                     range: 27..28,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -107,6 +112,10 @@ Module(
                                                     range: 39..40,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -119,6 +128,10 @@ Module(
                                                     range: 42..43,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -157,6 +170,10 @@ Module(
                                                     range: 56..57,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -169,6 +186,10 @@ Module(
                                                     range: 59..60,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -181,6 +202,10 @@ Module(
                                                     range: 62..63,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -222,6 +247,10 @@ Module(
                                                     range: 74..75,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -234,6 +263,10 @@ Module(
                                                     range: 77..78,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -255,6 +288,10 @@ Module(
                                                     range: 83..84,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -305,6 +342,10 @@ Module(
                                                     range: 98..99,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -317,6 +358,10 @@ Module(
                                                     range: 101..102,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -370,6 +415,10 @@ Module(
                                                     range: 117..118,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -382,6 +431,10 @@ Module(
                                                     range: 120..121,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -443,6 +496,10 @@ Module(
                                                 range: 139..140,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                     kwonlyargs: [],
@@ -479,6 +536,10 @@ Module(
                                                 range: 152..153,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                     kwonlyargs: [
@@ -491,6 +552,10 @@ Module(
                                                     range: 155..156,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -503,6 +568,10 @@ Module(
                                                     range: 158..159,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -550,6 +619,10 @@ Module(
                                                     range: 177..178,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -562,6 +635,10 @@ Module(
                                                     range: 180..181,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -574,6 +651,10 @@ Module(
                                                     range: 183..184,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -615,6 +696,10 @@ Module(
                                                     range: 198..199,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -627,6 +712,10 @@ Module(
                                                     range: 201..202,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -648,6 +737,10 @@ Module(
                                                     range: 207..208,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -696,6 +789,10 @@ Module(
                                                     range: 222..223,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -708,6 +805,10 @@ Module(
                                                     range: 225..226,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -720,6 +821,10 @@ Module(
                                                     range: 228..229,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -735,6 +840,10 @@ Module(
                                                     range: 234..235,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -747,6 +856,10 @@ Module(
                                                     range: 237..238,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -787,6 +900,10 @@ Module(
                                                 range: 251..257,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                 },
@@ -831,6 +948,10 @@ Module(
                                                 range: 271..275,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                     kwonlyargs: [],
@@ -842,6 +963,10 @@ Module(
                                                 range: 279..285,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                 },
@@ -900,6 +1025,10 @@ Module(
                                                 range: 303..307,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                     kwonlyargs: [
@@ -912,6 +1041,10 @@ Module(
                                                     range: 309..310,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -924,6 +1057,10 @@ Module(
                                                     range: 312..313,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -945,6 +1082,10 @@ Module(
                                                 range: 319..325,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                 },
@@ -1003,6 +1144,10 @@ Module(
                                                     range: 342..343,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1041,6 +1186,10 @@ Module(
                                                     range: 359..360,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1055,6 +1204,10 @@ Module(
                                                     range: 365..366,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1092,6 +1245,10 @@ Module(
                                                     range: 379..380,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -1139,6 +1296,10 @@ Module(
                                                     range: 399..400,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1151,6 +1312,10 @@ Module(
                                                     range: 402..403,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1167,6 +1332,10 @@ Module(
                                                     range: 411..412,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1203,6 +1372,10 @@ Module(
                                                     range: 425..427,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -1227,6 +1400,10 @@ Module(
                                                     range: 434..435,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1262,6 +1439,10 @@ Module(
                                                     range: 448..449,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1274,6 +1455,10 @@ Module(
                                                     range: 451..452,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -1297,6 +1482,10 @@ Module(
                                                     range: 460..461,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: Some(
                                                 NumberLiteral(
@@ -1346,6 +1535,10 @@ Module(
                                                     range: 475..476,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1358,6 +1551,10 @@ Module(
                                                     range: 478..479,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1372,6 +1569,10 @@ Module(
                                                     range: 484..485,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1387,6 +1588,10 @@ Module(
                                                     range: 490..491,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1399,6 +1604,10 @@ Module(
                                                     range: 493..494,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1437,6 +1646,10 @@ Module(
                                                     range: 505..506,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1449,6 +1662,10 @@ Module(
                                                     range: 508..509,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1463,6 +1680,10 @@ Module(
                                                     range: 514..515,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1475,6 +1696,10 @@ Module(
                                                 range: 518..519,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                     kwonlyargs: [
@@ -1487,6 +1712,10 @@ Module(
                                                     range: 521..522,
                                                 },
                                                 annotation: None,
+                                                convention: AstParamConvention {
+                                                    ownership: Borrow,
+                                                    mutability: Immutable,
+                                                },
                                             },
                                             default: None,
                                         },
@@ -1499,6 +1728,10 @@ Module(
                                                 range: 526..527,
                                             },
                                             annotation: None,
+                                            convention: AstParamConvention {
+                                                ownership: Borrow,
+                                                mutability: Immutable,
+                                            },
                                         },
                                     ),
                                 },

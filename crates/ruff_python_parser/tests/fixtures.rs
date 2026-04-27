@@ -6,11 +6,11 @@ use std::path::Path;
 use annotate_snippets::display_list::{DisplayList, FormatOptions};
 use annotate_snippets::snippet::{AnnotationType, Slice, Snippet, SourceAnnotation};
 
+use ruff_source_file::{LineIndex, OneIndexed, SourceCode};
+use ruff_text_size::{Ranged, TextLen, TextRange, TextSize};
 use ruff_python_ast::visitor::source_order::{walk_module, SourceOrderVisitor, TraversalSignal};
 use ruff_python_ast::{AnyNodeRef, Mod};
 use ruff_python_parser::{parse_unchecked, Mode, ParseErrorType};
-use ruff_source_file::{LineIndex, OneIndexed, SourceCode};
-use ruff_text_size::{Ranged, TextLen, TextRange, TextSize};
 
 #[test]
 fn valid_syntax() {
@@ -166,7 +166,7 @@ struct CodeFrame<'a> {
 
 impl std::fmt::Display for CodeFrame<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        // Copied and modified from ruff_linter/src/message/text.rs
+        // Copied and modified from sifr_linter/src/message/text.rs
         let content_start_index = self.source_code.line_index(self.range.start());
         let mut start_index = content_start_index.saturating_sub(2);
 

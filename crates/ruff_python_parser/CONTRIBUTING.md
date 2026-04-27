@@ -81,18 +81,18 @@ the same set of seeds on every run.
 
 ## Benchmarks
 
-The `ruff_benchmark` crate can benchmark both the lexer and the parser.
+The `sifr_benchmark` crate can benchmark both the lexer and the parser.
 
 To run the lexer benchmarks, use the following command:
 
 ```sh
-cargo bench --package ruff_benchmark --bench lexer
+cargo bench --package sifr_benchmark --bench lexer
 ```
 
 And to run the parser benchmarks, use the following command:
 
 ```sh
-cargo bench --package ruff_benchmark --bench parser
+cargo bench --package sifr_benchmark --bench parser
 ```
 
 Refer to the [Benchmarking and

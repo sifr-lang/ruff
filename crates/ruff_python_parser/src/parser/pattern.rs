@@ -1,5 +1,5 @@
-use ruff_python_ast::{self as ast, Expr, ExprContext, Number, Operator, Pattern, Singleton};
 use ruff_text_size::{Ranged, TextSize};
+use ruff_python_ast::{self as ast, Expr, ExprContext, Number, Operator, Pattern, Singleton};
 
 use crate::lexer::TokenValue;
 use crate::parser::progress::ParserProgress;

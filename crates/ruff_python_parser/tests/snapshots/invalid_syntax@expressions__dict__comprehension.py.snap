@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/invalid/expressions/dict/comprehension.py
 ---
 ## AST
@@ -425,6 +426,10 @@ Module(
                                                                     range: 211..212,
                                                                 },
                                                                 annotation: None,
+                                                                convention: AstParamConvention {
+                                                                    ownership: Borrow,
+                                                                    mutability: Immutable,
+                                                                },
                                                             },
                                                             default: None,
                                                         },
@@ -683,6 +688,10 @@ Module(
                                                                         range: 357..358,
                                                                     },
                                                                     annotation: None,
+                                                                    convention: AstParamConvention {
+                                                                        ownership: Borrow,
+                                                                        mutability: Immutable,
+                                                                    },
                                                                 },
                                                                 default: None,
                                                             },

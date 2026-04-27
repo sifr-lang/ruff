@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/inline/err/param_with_invalid_default.py
 ---
 ## AST
@@ -32,6 +33,10 @@ Module(
                                         range: 8..9,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Starred(
@@ -92,6 +97,10 @@ Module(
                                         range: 29..30,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Starred(
@@ -152,6 +161,10 @@ Module(
                                         range: 52..53,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Yield(

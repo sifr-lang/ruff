@@ -1,5 +1,6 @@
 ---
 source: crates/ruff_python_parser/tests/fixtures.rs
+assertion_line: 118
 input_file: crates/ruff_python_parser/resources/inline/err/params_duplicate_names.py
 ---
 ## AST
@@ -32,6 +33,10 @@ Module(
                                         range: 8..9,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -44,6 +49,10 @@ Module(
                                         range: 11..12,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -65,6 +74,10 @@ Module(
                                     range: 18..19,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -77,6 +90,10 @@ Module(
                                         range: 21..22,
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -97,6 +114,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -109,6 +130,10 @@ Module(
                                     range: 34..35,
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
