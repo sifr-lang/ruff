@@ -39,6 +39,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Lambda(
@@ -63,6 +67,10 @@ Module(
                                                                     node_index: NodeIndex(None),
                                                                 },
                                                                 annotation: None,
+                                                                convention: AstParamConvention {
+                                                                    ownership: Borrow,
+                                                                    mutability: Immutable,
+                                                                },
                                                             },
                                                             default: None,
                                                         },
@@ -135,6 +143,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     If(
@@ -221,6 +233,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Await(
@@ -290,6 +306,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Yield(

@@ -71,6 +71,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -86,6 +90,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -101,6 +109,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -149,6 +161,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -164,6 +180,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -189,6 +209,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -246,6 +270,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -261,6 +289,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -288,6 +320,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -345,6 +381,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -362,6 +402,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -377,6 +421,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -424,6 +472,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -439,6 +491,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -466,6 +522,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -490,6 +550,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],
@@ -503,6 +567,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -548,6 +616,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -563,6 +635,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -578,6 +654,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -626,6 +706,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -641,6 +725,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -666,6 +754,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -720,6 +812,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -735,6 +831,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -750,6 +850,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -775,6 +879,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -833,6 +941,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -848,6 +960,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -873,6 +989,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -897,6 +1017,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -938,6 +1062,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -953,6 +1081,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -968,6 +1100,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -993,6 +1129,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1017,6 +1157,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -1059,6 +1203,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1074,6 +1222,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1091,6 +1243,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1109,6 +1265,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1124,6 +1284,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1139,6 +1303,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1184,6 +1352,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1199,6 +1371,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1216,6 +1392,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1234,6 +1414,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1249,6 +1433,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1274,6 +1462,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1329,6 +1521,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1344,6 +1540,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1361,6 +1561,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1375,6 +1579,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -1390,6 +1598,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1405,6 +1617,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1430,6 +1646,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1485,6 +1705,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1500,6 +1724,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1517,6 +1745,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1535,6 +1767,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1550,6 +1786,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1575,6 +1815,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1599,6 +1843,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -1641,6 +1889,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1656,6 +1908,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1673,6 +1929,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1687,6 +1947,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -1702,6 +1966,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1717,6 +1985,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1742,6 +2014,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -1766,6 +2042,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -1809,6 +2089,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1824,6 +2108,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1839,6 +2127,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1857,6 +2149,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1872,6 +2168,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1887,6 +2187,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1933,6 +2237,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1948,6 +2256,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1963,6 +2275,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1981,6 +2297,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -1996,6 +2316,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -2021,6 +2345,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -2077,6 +2405,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2092,6 +2424,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2107,6 +2443,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2121,6 +2461,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -2136,6 +2480,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2151,6 +2499,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -2176,6 +2528,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -2232,6 +2588,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2247,6 +2607,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2262,6 +2626,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2276,6 +2644,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [
@@ -2291,6 +2663,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2306,6 +2682,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -2331,6 +2711,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -2355,6 +2739,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -2427,6 +2815,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2522,6 +2914,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2635,6 +3031,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -2725,6 +3125,10 @@ Module(
                                         },
                                     ),
                                 ),
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],
@@ -2849,6 +3253,10 @@ Module(
                                         },
                                     ),
                                 ),
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],
@@ -2883,6 +3291,10 @@ Module(
                                         },
                                     ),
                                 ),
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -3139,6 +3551,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],
@@ -3184,6 +3600,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -3225,6 +3645,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                         kwonlyargs: [],
@@ -3238,6 +3662,10 @@ Module(
                                     node_index: NodeIndex(None),
                                 },
                                 annotation: None,
+                                convention: AstParamConvention {
+                                    ownership: Borrow,
+                                    mutability: Immutable,
+                                },
                             },
                         ),
                     },
@@ -3280,6 +3708,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3328,6 +3760,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3345,6 +3781,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3392,6 +3832,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -3450,6 +3894,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3465,6 +3913,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3484,6 +3936,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3530,6 +3986,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -3558,6 +4018,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3613,6 +4077,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3650,6 +4118,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3691,6 +4163,10 @@ Module(
                                             },
                                         ),
                                     ),
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3739,6 +4215,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: None,
                             },
@@ -3754,6 +4234,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -3779,6 +4263,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
@@ -3804,6 +4292,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     NumberLiteral(
