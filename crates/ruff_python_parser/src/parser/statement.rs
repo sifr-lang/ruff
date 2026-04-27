@@ -3155,6 +3155,44 @@ impl<'src> Parser<'src> {
         function_kind: FunctionKind,
         allow_star_annotation: AllowStarAnnotation,
     ) -> ast::Parameter {
+        // Sifr extension: check for `mut` / `own` modifiers before the parameter name.
+        // Only treat a soft keyword as a modifier when another name follows, so
+        // `def f(mut: int)` still parses `mut` as the parameter name.
+        let mut convention = ast::AstParamConvention::borrow();
+        while self.at(TokenKind::Name) && {
+            let next = self.peek();
+            next == TokenKind::Name || next.is_soft_keyword()
+        } {
+            let text = self.src_text(self.current_token_range());
+            match text {
+                "mut" => {
+                    if convention.is_mutable() {
+                        self.add_error(
+                            ParseErrorType::OtherError(
+                                "duplicate `mut` parameter modifier".to_string(),
+                            ),
+                            self.current_token_range(),
+                        );
+                    }
+                    convention.mutability = ast::AstParamMutability::Mutable;
+                    self.bump_any();
+                }
+                "own" => {
+                    if convention.is_owned() {
+                        self.add_error(
+                            ParseErrorType::OtherError(
+                                "duplicate `own` parameter modifier".to_string(),
+                            ),
+                            self.current_token_range(),
+                        );
+                    }
+                    convention.ownership = ast::AstParamOwnership::Own;
+                    self.bump_any();
+                }
+                _ => break,
+            }
+        }
+
         let name = self.parse_identifier();
 
         // Annotations are only allowed for function definition. For lambda expression,
@@ -3237,6 +3275,7 @@ impl<'src> Parser<'src> {
             name,
             annotation,
             node_index: AtomicNodeIndex::NONE,
+            convention,
         }
     }
 
