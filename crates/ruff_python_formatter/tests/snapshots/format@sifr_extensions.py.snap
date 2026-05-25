@@ -1,0 +1,76 @@
+---
+source: crates/ruff_python_formatter/tests/fixtures.rs
+assertion_line: 309
+input_file: crates/ruff_python_formatter/resources/test/fixtures/ruff/sifr_extensions.py
+---
+## Input
+```python
+# Sifr formatter extension coverage.
+
+
+def consume(mut own items: list[int], own fallback: list[int]) -> list[int]:
+    # `mut own` must format through the Ruff AST rule as canonical `own mut`.
+    match len(items):
+        case 0:
+            return fallback
+        case _:
+            return [value for value in items if value > 0]
+
+
+class Box[T]:
+    value: T
+
+    def replace(own mut self, own value: T) -> T:
+        old: T = self.value
+        self.value = value
+        return old
+
+
+def shape(values: dict[str, list[int]]) -> Result[list[int], str]:
+    if "items" not in values:
+        return Err("missing")
+    return Ok(values["items"])
+
+
+def suppressed(mut borrowed: list[int]) -> list[int]:
+    # fmt: off
+    untouched=[ 3,2,1]
+    # fmt: on
+    return borrowed
+```
+
+## Output
+```python
+# Sifr formatter extension coverage.
+
+
+def consume(own mut items: list[int], own fallback: list[int]) -> list[int]:
+    # `mut own` must format through the Ruff AST rule as canonical `own mut`.
+    match len(items):
+        case 0:
+            return fallback
+        case _:
+            return [value for value in items if value > 0]
+
+
+class Box[T]:
+    value: T
+
+    def replace(own mut self, own value: T) -> T:
+        old: T = self.value
+        self.value = value
+        return old
+
+
+def shape(values: dict[str, list[int]]) -> Result[list[int], str]:
+    if "items" not in values:
+        return Err("missing")
+    return Ok(values["items"])
+
+
+def suppressed(mut borrowed: list[int]) -> list[int]:
+    # fmt: off
+    untouched=[ 3,2,1]
+    # fmt: on
+    return borrowed
+```
