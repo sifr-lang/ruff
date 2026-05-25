@@ -243,6 +243,43 @@ if True:
         Ok(())
     }
 
+    #[test]
+    fn sifr_parameter_conventions() -> Result<()> {
+        let input = r"
+def modes(items: list[int], mut borrowed: list[int], own taken: list[int], own mut transformed: list[int]):
+    pass
+";
+        let expected = r"def modes(
+    items: list[int],
+    mut borrowed: list[int],
+    own taken: list[int],
+    own mut transformed: list[int],
+):
+    pass
+";
+        let actual = format_module_source(input, PyFormatOptions::default())?
+            .as_code()
+            .to_string();
+        assert_eq!(expected, actual);
+        Ok(())
+    }
+
+    #[test]
+    fn sifr_mut_own_parameter_convention_canonicalizes_to_own_mut() -> Result<()> {
+        let input = r"
+def consume(mut own items: list[int]):
+    pass
+";
+        let expected = r"def consume(own mut items: list[int]):
+    pass
+";
+        let actual = format_module_source(input, PyFormatOptions::default())?
+            .as_code()
+            .to_string();
+        assert_eq!(expected, actual);
+        Ok(())
+    }
+
     /// Use this test to debug the formatting of some snipped
     #[ignore]
     #[test]
