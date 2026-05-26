@@ -1,0 +1,9 @@
+[
+  {
+    "docstring_code": "disabled"
+  },
+  {
+    "docstring_code": "enabled",
+    "docstring_code_line_width": "dynamic"
+  }
+]
