@@ -25,6 +25,23 @@ def shape(values: dict[str, list[int]]) -> Result[list[int], str]:
     return Ok(values["items"])
 
 
+def documented(mut own values: list[int]) -> list[int]:
+    """
+    Sifr docstring snippets format when docstring code formatting is enabled.
+
+    ```sifr
+    def sample( mut own items:list[int])->list[int]:
+        return [item for item in items if item>0]
+    ```
+
+    .. code-block:: sifr
+
+        def passthrough( own item:Result[int,str])->Result[int,str]:
+            return item
+    """
+    return values
+
+
 def suppressed(mut borrowed: list[int]) -> list[int]:
     # fmt: off
     untouched=[ 3,2,1]
