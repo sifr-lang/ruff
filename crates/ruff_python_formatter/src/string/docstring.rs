@@ -1067,14 +1067,15 @@ impl<'src> CodeExampleRst<'src> {
         //
         // The language names matched here (e.g., `python` or `py`) are taken
         // from the [Pygments lexer names], which is referenced from the docs
-        // for the [code-block] directive.
+        // for the [code-block] directive. `sifr` is accepted by the Sifr fork
+        // because Sifr source uses Python syntax with Sifr-specific extensions.
         //
         // [directives]: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#directives
         // [Pygments lexer names]: https://pygments.org/docs/lexers/
         // [code-block]: https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block
         static DIRECTIVE_START: LazyLock<Regex> = LazyLock::new(|| {
             Regex::new(
-                r"(?m)^\s*\.\. \s*(?i:code-block|sourcecode)::\s*(?i:python|py|python3|py3)$",
+                r"(?m)^\s*\.\. \s*(?i:code-block|sourcecode)::\s*(?i:python|py|python3|py3|sifr)$",
             )
             .unwrap()
         });
@@ -1336,9 +1337,9 @@ impl<'src> CodeExampleMarkdown<'src> {
                     # writing, we do assume unlabeled blocks are Python, but
                     # one could inspect the `ticklang` and `tildlang` capture
                     # groups to determine whether the block is labeled or not.
-                    (?<ticks>```+)(?:\s*(?<ticklang>(?i:python|py|python3|py3))[^`]*)?
+                    (?<ticks>```+)(?:\s*(?<ticklang>(?i:python|py|python3|py3|sifr))[^`]*)?
                     |
-                    (?<tilds>~~~+)(?:\s*(?<tildlang>(?i:python|py|python3|py3))\p{any}*)?
+                    (?<tilds>~~~+)(?:\s*(?<tildlang>(?i:python|py|python3|py3|sifr))\p{any}*)?
                 )
                 $
                 ",
