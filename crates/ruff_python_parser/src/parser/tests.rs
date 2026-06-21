@@ -16,6 +16,18 @@ fn test_modes() {
 }
 
 #[test]
+fn rust_async_decorator_attribute_parses() {
+    let source = r"
+@rust.async(thread_affinity=tokio_current_thread)
+@rust(bridge.client.fetch)
+def fetch() -> int:
+    return 1
+";
+
+    parse_module(source).expect("rust.async decorator should parse");
+}
+
+#[test]
 fn test_expr_mode_invalid_syntax1() {
     let source = "first second";
     let error = parse_expression(source).unwrap_err();
