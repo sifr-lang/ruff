@@ -1100,7 +1100,11 @@ impl<'src> Parser<'src> {
     ) -> ast::ExprAttribute {
         self.bump(TokenKind::Dot);
 
-        let attr = self.parse_identifier();
+        let attr = if self.rust_async_attribute_is_allowed(&value) {
+            self.parse_non_error_keyword_identifier()
+        } else {
+            self.parse_identifier()
+        };
 
         ast::ExprAttribute {
             value: Box::new(value),
@@ -1109,6 +1113,22 @@ impl<'src> Parser<'src> {
             range: self.node_range(start),
             node_index: AtomicNodeIndex::NONE,
         }
+    }
+
+    fn parse_non_error_keyword_identifier(&mut self) -> ast::Identifier {
+        let range = self.current_token_range();
+        let id = Name::new(self.src_text(range));
+        self.bump_any();
+        ast::Identifier {
+            id,
+            range,
+            node_index: AtomicNodeIndex::NONE,
+        }
+    }
+
+    fn rust_async_attribute_is_allowed(&self, value: &Expr) -> bool {
+        matches!(value, Expr::Name(name) if name.id.as_str() == "rust")
+            && self.at(TokenKind::Async)
     }
 
     /// Parses a boolean operation expression.
