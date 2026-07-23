@@ -1169,8 +1169,7 @@ impl<'src> Parser<'src> {
     }
 
     fn rust_async_attribute_is_allowed(&self, value: &Expr) -> bool {
-        matches!(value, Expr::Name(name) if name.id.as_str() == "rust")
-            && self.at(TokenKind::Async)
+        matches!(value, Expr::Name(name) if name.id.as_str() == "rust") && self.at(TokenKind::Async)
     }
 
     /// Parses a boolean operation expression.
