@@ -39,6 +39,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Starred(
@@ -109,6 +113,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Starred(
@@ -179,6 +187,10 @@ Module(
                                         node_index: NodeIndex(None),
                                     },
                                     annotation: None,
+                                    convention: AstParamConvention {
+                                        ownership: Borrow,
+                                        mutability: Immutable,
+                                    },
                                 },
                                 default: Some(
                                     Yield(

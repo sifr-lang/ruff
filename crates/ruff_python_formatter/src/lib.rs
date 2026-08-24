@@ -8,7 +8,9 @@ use tracing::Level;
 
 pub use range::format_range;
 use ruff_formatter::prelude::*;
-use ruff_formatter::{FormatError, Formatted, PrintError, Printed, SourceCode, format, write};
+use ruff_formatter::{
+    FormatError, Formatted, PrintError, Printed, PrintedRange, SourceCode, format, write,
+};
 use ruff_python_ast::{AnyNodeRef, Mod};
 use ruff_python_parser::{ParseError, ParseOptions, Parsed, parse};
 use ruff_python_trivia::TriviaRanges;
@@ -145,6 +147,29 @@ pub fn format_module_source(
     Ok(formatted.print()?)
 }
 
+/// Formats Sifr source using the Sifr-enabled Ruff parser and formatter rules.
+///
+/// This is the stable integration point for Sifr-owned crates. It intentionally
+/// delegates to the same formatter core as Python source so Sifr parameter
+/// conventions and Python-compatible syntax share one implementation.
+#[tracing::instrument(name = "format_sifr", level = Level::TRACE, skip_all)]
+pub fn format_sifr_module_source(
+    source: &str,
+    options: PyFormatOptions,
+) -> Result<Printed, FormatModuleError> {
+    format_module_source(source, options)
+}
+
+/// Range-formats Sifr source using the same formatter core as whole-file formatting.
+#[tracing::instrument(name = "format_sifr_range", level = Level::TRACE, skip_all)]
+pub fn format_sifr_range(
+    source: &str,
+    range: TextRange,
+    options: PyFormatOptions,
+) -> Result<PrintedRange, FormatModuleError> {
+    format_range(source, range, options)
+}
+
 pub fn format_module_ast<'a>(
     parsed: &'a Parsed<Mod>,
     trivia: &'a TriviaRanges,
@@ -220,7 +245,10 @@ mod tests {
     use ruff_python_trivia::TriviaRanges;
     use ruff_text_size::{TextRange, TextSize};
 
-    use crate::{PyFormatOptions, format_module_ast, format_module_source, format_range};
+    use crate::{
+        PyFormatOptions, format_module_ast, format_module_source, format_range,
+        format_sifr_module_source, format_sifr_range,
+    };
 
     /// Very basic test intentionally kept very similar to the CLI
     #[test]
@@ -241,6 +269,91 @@ if True:
             .to_string();
         assert_eq!(expected, actual);
         Ok(())
+    }
+
+    #[test]
+    fn sifr_parameter_conventions() -> Result<()> {
+        let input = r"
+def modes(items: list[int], mut borrowed: list[int], own taken: list[int], own mut transformed: list[int]):
+    pass
+";
+        let expected = r"def modes(
+    items: list[int],
+    mut borrowed: list[int],
+    own taken: list[int],
+    own mut transformed: list[int],
+):
+    pass
+";
+        let actual = format_module_source(input, PyFormatOptions::default())?
+            .as_code()
+            .to_string();
+        assert_eq!(expected, actual);
+        Ok(())
+    }
+
+    #[test]
+    fn sifr_mut_own_parameter_convention_canonicalizes_to_own_mut() -> Result<()> {
+        let input = r"
+def consume(mut own items: list[int]):
+    pass
+";
+        let expected = r"def consume(own mut items: list[int]):
+    pass
+";
+        let actual = format_module_source(input, PyFormatOptions::default())?
+            .as_code()
+            .to_string();
+        assert_eq!(expected, actual);
+        Ok(())
+    }
+
+    #[test]
+    fn sifr_public_wrapper_matches_formatter_core() -> Result<()> {
+        let input = r"
+def consume(mut own items: list[int], own fallback: list[int]) -> list[int]:
+    match len(items):
+        case 0:
+            return fallback
+        case _:
+            return items
+";
+        let options = PyFormatOptions::default();
+        let via_core = format_module_source(input, options.clone())?
+            .as_code()
+            .to_string();
+        let via_sifr = format_sifr_module_source(input, options)?
+            .as_code()
+            .to_string();
+        assert_eq!(via_core, via_sifr);
+        assert!(via_sifr.contains("own mut items: list[int]"));
+        Ok(())
+    }
+
+    #[test]
+    fn sifr_public_range_wrapper_matches_formatter_core() -> Result<()> {
+        let input = "def consume(mut own items: list[int]):\n    pass\n";
+        let range = TextRange::new(TextSize::new(0), TextSize::try_from(input.len())?);
+        let options = PyFormatOptions::default();
+        let via_core = format_range(input, range, options.clone())?
+            .as_code()
+            .to_string();
+        let via_sifr = format_sifr_range(input, range, options)?
+            .as_code()
+            .to_string();
+        assert_eq!(via_core, via_sifr);
+        assert_eq!(
+            "def consume(own mut items: list[int]):\n    pass\n",
+            via_sifr
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn sifr_public_wrapper_rejects_invalid_source() {
+        let err = format_sifr_module_source("def broken(:\n", PyFormatOptions::default())
+            .expect_err("invalid Sifr source should fail closed");
+        assert!(matches!(err, crate::FormatModuleError::ParseError(_)));
     }
 
     /// Use this test to debug the formatting of some snipped

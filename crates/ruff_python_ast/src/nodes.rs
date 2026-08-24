@@ -2827,6 +2827,80 @@ pub struct ExceptHandlerExceptHandler {
     pub body: Suite,
 }
 
+/// Parameter ownership mode in Sifr's AST.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+#[cfg_attr(feature = "get-size", derive(get_size2::GetSize))]
+pub enum AstParamOwnership {
+    /// Borrow the argument from the caller.
+    #[default]
+    Borrow,
+    /// Transfer ownership into the callee.
+    Own,
+}
+
+/// Parameter local mutability mode in Sifr's AST.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+#[cfg_attr(feature = "get-size", derive(get_size2::GetSize))]
+pub enum AstParamMutability {
+    /// The local binding is immutable.
+    #[default]
+    Immutable,
+    /// The local binding is mutable.
+    Mutable,
+}
+
+/// Normalized parameter convention in the AST.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+#[cfg_attr(feature = "get-size", derive(get_size2::GetSize))]
+pub struct AstParamConvention {
+    pub ownership: AstParamOwnership,
+    pub mutability: AstParamMutability,
+}
+
+impl AstParamConvention {
+    #[must_use]
+    pub const fn borrow() -> Self {
+        Self {
+            ownership: AstParamOwnership::Borrow,
+            mutability: AstParamMutability::Immutable,
+        }
+    }
+
+    #[must_use]
+    pub const fn mut_borrow() -> Self {
+        Self {
+            ownership: AstParamOwnership::Borrow,
+            mutability: AstParamMutability::Mutable,
+        }
+    }
+
+    #[must_use]
+    pub const fn own() -> Self {
+        Self {
+            ownership: AstParamOwnership::Own,
+            mutability: AstParamMutability::Immutable,
+        }
+    }
+
+    #[must_use]
+    pub const fn own_mut() -> Self {
+        Self {
+            ownership: AstParamOwnership::Own,
+            mutability: AstParamMutability::Mutable,
+        }
+    }
+
+    #[must_use]
+    pub const fn is_owned(self) -> bool {
+        matches!(self.ownership, AstParamOwnership::Own)
+    }
+
+    #[must_use]
+    pub const fn is_mutable(self) -> bool {
+        matches!(self.mutability, AstParamMutability::Mutable)
+    }
+}
+
 /// See also [arg](https://docs.python.org/3/library/ast.html#ast.arg)
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "get-size", derive(get_size2::GetSize))]
@@ -2835,6 +2909,8 @@ pub struct Parameter {
     pub node_index: AtomicNodeIndex,
     pub name: Identifier,
     pub annotation: Option<Box<Expr>>,
+    /// Sifr parameter ownership/mutability modifiers.
+    pub convention: AstParamConvention,
 }
 
 impl Parameter {
