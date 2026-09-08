@@ -34,6 +34,7 @@ division-by-zero = "error"
 unused-ignore-comment = "error"
 
 [tool.uv]
+required-version = "==0.12.10"
 no-build = true
 no-binary-package = ["ty-benchmark"]
 # Pin the isolated build environment for source-build exceptions.

@@ -92,6 +92,7 @@ typeshed-formatting = [
 ]
 
 [tool.uv]
+required-version = "==0.12.10"
 no-build = true
 # CI installs the local ecosystem runner and tools pinned to Git revisions.
 no-binary-package = [

@@ -25,5 +25,6 @@ linter = [
 ]
 
 [tool.uv]
+required-version = "==0.12.10"
 no-build = true
 exclude-newer = "P7D"

@@ -81,6 +81,7 @@ combine-as-imports = true
 split-on-trailing-comma = false
 
 [tool.uv]
+required-version = "==0.12.10"
 no-build = true
 no-binary-package = ["py-fuzzer"]
 # Pin the isolated build environment for source-build exceptions.
