@@ -593,7 +593,7 @@ jobs:
         uses: rui314/setup-mold@7e4f20ad28a2e8ca6fd0892ccf72e2abb706b9c3 # v1
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
-          version: "0.12.9"
+          version: "0.12.10"
       - run: uv run --only-dev cargo fuzz build -s none
 
   fuzz-parser:
@@ -863,7 +863,7 @@ jobs:
           persist-credentials: false
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
-          version: "0.12.9"
+          version: "0.12.10"
       - run: uv run --only-dev cargo shear --deny-warnings
 
   ty-completion-evaluation:
@@ -1199,7 +1199,7 @@ jobs:
 
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
-          version: "0.12.9"
+          version: "0.12.10"
 
       - name: "Install Rust toolchain"
         run: rustup show
