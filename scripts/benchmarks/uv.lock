@@ -216,7 +216,7 @@ wheels = [
 
 [[package]]
 name = "scripts"
-version = "0.16.4"
+version = "0.16.6"
 source = { virtual = "." }
 dependencies = [
     { name = "autoflake" },

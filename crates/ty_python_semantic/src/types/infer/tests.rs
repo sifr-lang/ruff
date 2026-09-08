@@ -1,3 +1,6 @@
+use std::assert_matches;
+use std::fmt::Write;
+
 use super::builder::TypeInferenceBuilder;
 use crate::db::tests::{TestDb, TestDbBuilder, setup_db};
 use crate::place::symbol;
@@ -300,14 +303,14 @@ fn compact_definition_types_omit_owner() -> anyhow::Result<()> {
 
     let owner_type = Type::unknown();
     let owner = DefinitionTypes::from_parts(first, vec![(first, owner_type)], vec![]);
-    assert!(matches!(owner, DefinitionTypes::Binding(ty) if ty == owner_type));
+    assert_matches!(owner, DefinitionTypes::Binding(ty) if ty == owner_type);
     assert_eq!(
         owner.bindings(first).collect::<Vec<_>>(),
         [(first, owner_type)]
     );
 
     let non_owner = DefinitionTypes::from_parts(first, vec![(second, owner_type)], vec![]);
-    assert!(matches!(non_owner, DefinitionTypes::Other(_)));
+    assert_matches!(non_owner, DefinitionTypes::Other(_));
     assert_eq!(
         non_owner.bindings(first).collect::<Vec<_>>(),
         [(second, owner_type)]
@@ -517,6 +520,72 @@ fn simple_assignment_does_not_enter_salsa_cycle() {
     assert_eq!(cycles, Vec::<String>::new());
 }
 
+/// Checks widening when a comparison truthiness override is present in only one iteration.
+///
+/// A missing override falls back to the expression type's truthiness. Widening must compare the
+/// effective truthiness from both iterations, including this fallback. Discarding an override from
+/// the previous iteration could otherwise make a previously ambiguous condition definite again.
+///
+/// We construct inference results directly because mdtests cannot prescribe intermediate Salsa
+/// results. A Python cycle can converge before widening starts, or drop an override without
+/// changing any final types or diagnostics. No known Python example exposes the failures checked
+/// here, so this is defensive coverage of the widening invariant.
+#[test]
+fn comparison_truthiness_widens_across_sparse_cycle_results() -> anyhow::Result<()> {
+    let mut db = setup_db();
+    db.write_dedented("src/comparison.py", "0 < 1 < 2")?;
+    let file = program_file(&db, system_path_to_file(&db, "src/comparison.py")?);
+    let module = parsed_module(&db, file.python_file(&db)).load(&db);
+    let Some(ast::Stmt::Expr(statement)) = module.syntax().body.first() else {
+        anyhow::bail!("expected a comparison expression statement");
+    };
+    let expression = ExpressionNodeKey::from(statement.value.as_ref());
+    let scope = global_scope(&db, file);
+    let env = ProgramEnvironment::from_scope(scope);
+    let inference = |ty, truthiness: Option<Truthiness>| ExpressionInference {
+        expressions: [(expression, ty)].into_iter().collect(),
+        extra: truthiness.map(|truthiness| {
+            Box::new(ExpressionInferenceExtra {
+                comparison_truthiness: [(expression, truthiness)].into_iter().collect(),
+                ..ExpressionInferenceExtra::default()
+            })
+        }),
+        #[cfg(debug_assertions)]
+        scope,
+    };
+
+    // A previously widened condition stays ambiguous even when the new result omits its
+    // override and has a definite value-type fallback.
+    let previous = inference(Type::bool_literal(false), Some(Truthiness::Ambiguous));
+    let mut current = inference(Type::bool_literal(false), None);
+    current.widen_comparison_truthiness(&db, &env, &previous);
+    assert_eq!(
+        current.comparison_truthiness(expression),
+        Some(Truthiness::Ambiguous)
+    );
+
+    // A new override is compared with the previous result's value-type fallback.
+    let previous = inference(Type::bool_literal(true), None);
+    let mut current = inference(Type::unknown(), Some(Truthiness::AlwaysFalse));
+    current.widen_comparison_truthiness(&db, &env, &previous);
+    assert_eq!(
+        current.comparison_truthiness(expression),
+        Some(Truthiness::Ambiguous)
+    );
+
+    // Matching effective truthiness stays precise. Keep the override even though it agrees with
+    // the current type: subsequent type widening can make that fallback ambiguous again.
+    let previous = inference(Type::unknown(), Some(Truthiness::AlwaysFalse));
+    let mut current = inference(Type::bool_literal(false), None);
+    current.widen_comparison_truthiness(&db, &env, &previous);
+    assert_eq!(
+        current.comparison_truthiness(expression),
+        Some(Truthiness::AlwaysFalse)
+    );
+
+    Ok(())
+}
+
 /// Test that a symbol known to be unbound in a scope does not still trigger cycle-causing
 /// reachability-constraint checks in that scope.
 #[test]
@@ -582,7 +651,8 @@ class Ui:
             );
 
             for index in 0..MANY_WIDGETS {
-                ui.push_str(&format!(
+                write!(
+                    ui,
                     concat!(
                         "        self.widget_{index} = Widget()\n",
                         "        self.widget_{index}.configure()\n",
@@ -590,7 +660,7 @@ class Ui:
                         "        self.widget_{index}.configure()\n",
                     ),
                     index = index,
-                ));
+                )?;
             }
             ui.push_str("        self.target = Widget()\n");
 
@@ -639,7 +709,8 @@ class Inner:
 "#,
             );
             for index in 0..MANY_WIDGETS {
-                inner.push_str(&format!(
+                write!(
+                    inner,
                     concat!(
                         "        self.widget_{index} = Widget()\n",
                         "        self.widget_{index}.configure()\n",
@@ -647,7 +718,7 @@ class Inner:
                         "        self.widget_{index}.configure()\n",
                     ),
                     index = index,
-                ));
+                )?;
             }
             inner.push_str("        self.target = Widget()\n");
 
@@ -762,6 +833,21 @@ value.bit_count()
         "/src/main.py",
         &["Object of type `str` has no attribute `bit_count`"],
     );
+
+    Ok(())
+}
+
+#[test]
+fn redundant_cast_without_closing_parenthesis() -> anyhow::Result<()> {
+    let mut db = setup_db();
+
+    // A final newline changes the recovered argument range, so these files deliberately omit it.
+    for suffix in ["", " # comment"] {
+        let source =
+            format!("from typing import cast\n\ndef f(x: int):\n    return cast(int, x{suffix}");
+        db.write_file("/src/main.py", &source)?;
+        assert_file_diagnostics(&db, "/src/main.py", &["Value is already of type `int`"]);
+    }
 
     Ok(())
 }
